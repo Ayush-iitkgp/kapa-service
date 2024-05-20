@@ -67,7 +67,15 @@ make create-superuser
 7. Sign into the django admin panel at `http://localhost:8002/admin`. The django admin panel is a UI that lets you interact with your database. You can execute CRUD operations for each database table.
 8. For local development create yourself a `Team`, `Project` and `ProjectAPIKey`. The `ProjectAPIKey` is used to authenticate/authorise API calls. If you try to make API calls without you will get a 401 back. You can send the `ProjectAPIKey` in a `X-API-KEY` header with your requests.
 9. Look at the available endpoints at `http://localhost:8002/redoc`
-10. Now you are good to go
+10. Ask you first question to the service
+```bash
+curl --location 'http://localhost:8002/query/v1/projects/<YOUR_PROJECT_ID>/chat' \
+--header 'X-API-KEY: <YOUR_PROJECT_API_KEY>' \
+--header 'Content-Type: application/json' \
+--data '{
+    "question": "A first question"
+}'
+```
 
 ## Challenge
 
