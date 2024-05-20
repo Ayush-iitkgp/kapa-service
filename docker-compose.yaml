@@ -1,0 +1,115 @@
+version: "3.9"
+
+networks:
+  service_network:
+    driver: bridge
+
+services:
+  db:
+    image: postgres:15.4
+    volumes:
+      - ./volumes/db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    networks:
+      - service_network
+
+  rabbitmq:
+    image: rabbitmq:3.11.16
+    ports:
+      - "5672:5672"
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+    networks:
+      - service_network
+
+  flower:
+    image: mher/flower
+    environment:
+      - CELERY_BROKER_URL=amqp://guest:guest@rabbitmq
+    ports:
+      - "5555:5555"
+    depends_on:
+      - rabbitmq
+    networks:
+      - service_network
+
+  service:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+      network: host
+    dns:
+      - 1.1.1.1
+    image: service
+    command: tail -F anything
+    volumes:
+      - .:/workspace
+    ports:
+      - "8002:8002"
+    environment:
+      - SECRET_KEY=m6PELZ0u3RK-Hah6p88eE-_6CymoqcnKz7l4mXtUlBI8MYLyUOCsHwMs2zI6Fu6CD0U
+      - ENVIRONMENT=DEV
+      - POSTGRES_NAME=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_HOST=db
+      - POSTGRES_PORT=5432
+      - STACKHERO_RABBITMQ_AMQP_URL_TLS=amqp://guest:guest@rabbitmq
+    depends_on:
+      - db
+      - rabbitmq
+    networks:
+      - service_network
+
+  service-worker:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+      network: host
+    dns:
+      - 1.1.1.1
+    image: service-worker
+    command: celery -A root worker --loglevel=info --concurrency=7
+    volumes:
+      - .:/workspace
+    environment:
+      - SECRET_KEY=m6PELZ0u3RK-Hah6p88eE-_6CymoqcnKz7l4mXtUlBI8MYLyUOCsHwMs2zI6Fu6CD0U
+      - ENVIRONMENT=DEV
+      - POSTGRES_NAME=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_HOST=db
+      - POSTGRES_PORT=5432
+      - STACKHERO_RABBITMQ_AMQP_URL_TLS=amqp://guest:guest@rabbitmq
+    depends_on:
+      - db
+      - rabbitmq
+    networks:
+      - service_network
+
+  service-beat:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    image: service-beat
+    command: celery -A root beat --loglevel=debug --scheduler django_celery_beat.schedulers:DatabaseScheduler
+    volumes:
+      - .:/workspace
+    environment:
+      - SECRET_KEY=m6PELZ0u3RK-Hah6p88eE-_6CymoqcnKz7l4mXtUlBI8MYLyUOCsHwMs2zI6Fu6CD0U
+      - ENVIRONMENT=DEV
+      - POSTGRES_NAME=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_HOST=db
+      - POSTGRES_PORT=5432
+      - STACKHERO_RABBITMQ_AMQP_URL_TLS=amqp://guest:guest@rabbitmq
+    depends_on:
+      - db
+      - rabbitmq
+    networks:
+      - service_network

@@ -1,0 +1,23 @@
+.env
+env
+venv
+__pycache__/
+*.py[cod]
+
+# C extensions
+*.so
+data
+.env
+celerybeat-schedule
+.DS_Store
+
+# local files
+.notes.md
+
+staticfiles
+
+coverage.xml
+
+.db_conns.ini
+
+volumes
