@@ -1,0 +1,135 @@
+{
+	"info": {
+		"_postman_id": "7a5e761a-24ca-480b-a601-4e109d65f4c4",
+		"name": "django-service",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "3648685"
+	},
+	"item": [
+		{
+			"name": "projects_chat_create",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"question\": \"The second question\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/query/v1/projects/{{projectId}}/chat",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"query",
+						"v1",
+						"projects",
+						"{{projectId}}",
+						"chat"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "projects_threads_list",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/query/v1/projects/{{projectId}}/threads?limit=10&offset=0",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"query",
+						"v1",
+						"projects",
+						"{{projectId}}",
+						"threads"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "10"
+						},
+						{
+							"key": "offset",
+							"value": "0"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "apikey",
+		"apikey": [
+			{
+				"key": "value",
+				"value": "{{projectAPIKey}}",
+				"type": "string"
+			},
+			{
+				"key": "key",
+				"value": "X-API-KEY",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "projectId",
+			"value": "9e6b7a00-f9ce-4817-8094-8337df5c3200",
+			"type": "string"
+		},
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8002",
+			"type": "string"
+		},
+		{
+			"key": "projectAPIKey",
+			"value": "PeEEVqXJ.GVzCZ1rE72HhHIHbvjfBnBpCSg19VA9q",
+			"type": "string"
+		}
+	]
+}
