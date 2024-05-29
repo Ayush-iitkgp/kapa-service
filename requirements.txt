@@ -38,3 +38,4 @@ whitenoise==6.6.0
 coreapi==2.3.3
 isort==5.12.0
 black==23.3.0
+pre-commit

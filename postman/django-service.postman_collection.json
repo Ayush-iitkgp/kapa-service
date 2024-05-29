@@ -42,6 +42,41 @@
 			"response": []
 		},
 		{
+			"name": "projects_chat_create_with_thread",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"question\": \"The second question\",\n    \"thread_id\": \"4ada2443-31c7-46e7-afc8-02f03ca0b6cd\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/query/v1/projects/{{projectId}}/chat",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"query",
+						"v1",
+						"projects",
+						"{{projectId}}",
+						"chat"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "projects_threads_list",
 			"request": {
 				"method": "GET",

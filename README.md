@@ -3,7 +3,7 @@
 This repository contains a monolithic RAG application. This service is not real but it was written with the real `kapa.ai` system in mind. It is identical in its technologies used but it is much smaller in scale and all its core implementations have been replaced by dummy code to reduce external dependencies.
 
 You can see some deployed examples of the real kapa [here](https://docs.kapa.ai/examples).
- 
+
 ## Introduction
 
 ### What does `kapa-interview-service` do?
@@ -18,7 +18,7 @@ Users can send API requests to `kapa-interview-service` and receive a generated 
 
 RAG stands for **Retrieval Augmented Generation** which is the fundamental concept kapa.ai is built on. When a new question comes in `kapa-interview-service` performs the following actions which are implemented by the `RAGAgent` class.
 1.  It takes the question and performs semantic search over a vector database. This means it tries to find the most relevant documents to answer the question which have been indexed beforehand. `kapa-interview-service` only has a dummy implementation for this which you can find in the `Retriever` class. There is no actual vector database and the whole system needed to do the actual indexing of content is omitted here.
-2. The `RAGAgent` creates a single prompt which contains the question, the relevant documents and instructions for the LLM. In a sense the `RAGAgent` asks the LLM to answer the question based on the relevant documents. 
+2. The `RAGAgent` creates a single prompt which contains the question, the relevant documents and instructions for the LLM. In a sense the `RAGAgent` asks the LLM to answer the question based on the relevant documents.
 3. The prompt is sent to an LLM to generate the answer using the `LLMClient` class. This class also just has a dummy implementation. There are no actual calls to a model here.
 4. The answer is saved in the database as `QuestionAnswer` as part of a `Thread`. A `Thread` represents a conversation.
 5. Now the answer is returned to the `User` that made the API call.
@@ -143,7 +143,7 @@ Via API call. You should give them the option to delete, create and modify categ
 #### Should categories be configurable per Team or per project?
 
 Per Project
-  
+
 #### Do users want to correct labels they disagree with?
 
 It is very possible that our classifier is wrong sometimes so we should give users the option to update category labels after they have been assigned. Users want to do this via API call as well.
@@ -155,14 +155,14 @@ If a user has already assigned a label to conversation than we should not overwr
 #### What can I use to do the actual classification?
 
 This take home does not test your ability to build an actual classifier for this problem. Instead there already is a dummy one you can use. You can make use of the `DummyClassifier` class. Feel free to rewrite it as much as you want. We just created it so you would not run off and build an actual classifier. This challenge is not about building a classifier but about writing code to integrate the classifier effectively into the code base. The actual labels that are assigned do not matter. You can assume that `DummyClassifier` can pick a label from an arbitrary list of labels. However, this operation is quite expensive. It takes about 2 seconds per question.
-  
+
 ## Submission
 
 When you are done with your work. You can do one of two things:
 
 - Create a private repo, raise a PR in it and invite finn@kapa.ai to it so we can take a look
 
-or 
+or
 
 - Send us back the solution as a zipped folder.
 
