@@ -6,6 +6,6 @@ You can see some deployed examples of the real kapa [here](https://docs.kapa.ai/
 
 ## Introduction
 
-The project introduction and the problem statement can be found at `docs/problem_statement.md`
+The project introduction and the problem statement can be found at [docs/problem_statement.md](docs/problem_statement.md)
 
 ## Solution
