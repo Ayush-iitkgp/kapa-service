@@ -17,7 +17,7 @@ RAG stands for **Retrieval Augmented Generation** which is the fundamental conce
 4. The answer is saved in the database as `QuestionAnswer` as part of a `Thread`. A `Thread` represents a conversation.
 5. Now the answer is returned to the `User` that made the API call.
 
-![Flow Diagram](images/diagram.png)
+![Flow Diagram](../images/diagram.png)
 
 ### What technologies does `kapa-interview-service` use?
 
