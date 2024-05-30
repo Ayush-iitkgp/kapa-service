@@ -1,5 +1,5 @@
 import uuid
-from typing import List, TypedDict
+from typing import TypedDict
 
 
 class Chunk(TypedDict):
@@ -43,7 +43,7 @@ class LLMGeneration(TypedDict):
 
 class Label(TypedDict):
     """
-    Represents a lable that can be assigned to an entity
+    Represents a label that can be assigned to an entity
     """
 
     id: uuid.UUID

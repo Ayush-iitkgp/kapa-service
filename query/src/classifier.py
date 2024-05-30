@@ -1,7 +1,8 @@
 import random
 import time
-from typing import Any, List
+from typing import List
 
+from org.models import Project
 from query.src.types import Label
 
 
@@ -11,6 +12,9 @@ class DummyClassifier:
     However, you do not need to make any changes to this class. You do not have to implement
     an actual classifier.
     """
+
+    def __init__(self, project: Project):
+        self.project = project
 
     def classify_question(self, question: str, possible_labels: List[Label]) -> Label:
         """
