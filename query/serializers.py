@@ -48,6 +48,7 @@ class ThreadSerializer(serializers.ModelSerializer):
             "created_at",
             "first_question",
             "total_questions",
+            "label",
         ]
 
     def get_first_question(self, obj) -> Optional[str]:
