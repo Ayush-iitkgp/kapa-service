@@ -89,7 +89,7 @@ class Project(AbstractBaseModel, AbstractProjectDependentModel):
     product_name = models.CharField(max_length=100)  # for prompting: Airbyte
     labels = ArrayField(
         models.CharField(max_length=100),
-        default=list([LabelEnum.DISCOVERY, LabelEnum.TROUBLESHOOTING]),
+        default=list([LabelEnum.DISCOVERY.title(), LabelEnum.TROUBLESHOOTING.title()]),
         blank=True,
         help_text="List of labels associated with the project",
     )
