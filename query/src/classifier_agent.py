@@ -1,6 +1,5 @@
 from org.models import Project
 from query.src.classifier import DummyClassifier
-from query.src.types import Label
 
 
 class ClassifierAgent:
@@ -10,9 +9,9 @@ class ClassifierAgent:
 
     def __init__(self, project: Project):
         self.project = project
-        self.possible_labels = []
+        self.possible_labels = list(project.labels)
 
-    def classify_question(self, question: str) -> Label:
+    def classify_question(self, question: str) -> str:
         """
         Generate a label to a question based on the classifier
         """

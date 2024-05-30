@@ -2,7 +2,7 @@ import pytest
 from rest_framework.test import APIClient
 
 from org.models import Project, ProjectAPIKey, Team
-from query.models import Thread
+from query.models import QuestionAnswer, Thread
 
 
 @pytest.fixture
@@ -32,3 +32,10 @@ def client_api_token(api_key: str) -> APIClient:
 @pytest.fixture
 def thread(project: Project) -> Thread:
     yield Thread.objects.create(project=project)
+
+
+@pytest.fixture()
+def question_answer(thread: Thread) -> QuestionAnswer:
+    yield QuestionAnswer.objects.create(
+        question="random question", answer="random answer", thread=thread
+    )

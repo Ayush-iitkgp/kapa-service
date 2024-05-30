@@ -1,3 +1,4 @@
+import logging
 import uuid
 
 from django.core.exceptions import ValidationError
@@ -5,6 +6,8 @@ from django.db import models
 
 from org.models import Project
 from utils.models import AbstractBaseModel, AbstractProjectDependentModel
+
+logger = logging.getLogger(__name__)
 
 
 class Thread(AbstractBaseModel, AbstractProjectDependentModel):
@@ -33,6 +36,10 @@ class Thread(AbstractBaseModel, AbstractProjectDependentModel):
             raise ValidationError(
                 f"The label '{self.label}' is not in the project's defined labels."
             )
+
+    def update_label(self, label):
+        self.label = label
+        self.save()
 
     class Meta:
         verbose_name = "Thread"

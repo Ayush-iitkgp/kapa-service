@@ -3,7 +3,6 @@ import time
 from typing import List
 
 from org.models import Project
-from query.src.types import Label
 
 
 class DummyClassifier:
@@ -16,7 +15,7 @@ class DummyClassifier:
     def __init__(self, project: Project):
         self.project = project
 
-    def classify_question(self, question: str, possible_labels: List[Label]) -> Label:
+    def classify_question(self, question: str, possible_labels: List[str]) -> str:
         """
         Assign a label from a list of possible labels to an question.
 
