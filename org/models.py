@@ -2,12 +2,13 @@ import logging
 import uuid
 
 from django.contrib.auth.models import AbstractUser
+from django.contrib.postgres.fields import ArrayField
 from django.db import models
-from django.utils.translation import gettext_lazy as _
 from guardian.mixins import GuardianUserMixin
 from rest_framework_api_key.models import AbstractAPIKey
 
 from org.managers import UserManager
+from query.src.enums import LabelEnum
 from utils.models import AbstractBaseModel, AbstractProjectDependentModel
 
 logger = logging.getLogger(__name__)
@@ -86,6 +87,12 @@ class Project(AbstractBaseModel, AbstractProjectDependentModel):
 
     project_name = models.CharField(max_length=200)  # Airbyte
     product_name = models.CharField(max_length=100)  # for prompting: Airbyte
+    labels = ArrayField(
+        models.CharField(max_length=100),
+        default=list([LabelEnum.DISCOVERY, LabelEnum.TROUBLESHOOTING]),
+        blank=True,
+        help_text="List of labels associated with the project",
+    )
 
     def __str__(self):
         team_name = self.team.name if self.team else "No Team"

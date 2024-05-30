@@ -18,7 +18,7 @@ class Thread(AbstractBaseModel, AbstractProjectDependentModel):
     project = models.ForeignKey(
         Project, on_delete=models.CASCADE, related_name="threads"
     )
-    label_id = models.UUIDField(null=True, default=None, editable=False)
+    label = models.CharField(max_length=100, default=None, null=True, blank=True)
 
     def __str__(self):
         return f"Thread for {self.project} {self.id}"
@@ -29,13 +29,10 @@ class Thread(AbstractBaseModel, AbstractProjectDependentModel):
 
     def clean(self):
         super().clean()
-        if self.label_id:
-            if not Label.objects.filter(
-                id=self.label_id, project=self.project
-            ).exists():
-                raise ValidationError(
-                    "label_id must be a UUID of a label associated with the same project."
-                )
+        if self.label is not None and self.label not in self.project.labels:
+            raise ValidationError(
+                f"The label '{self.label}' is not in the project's defined labels."
+            )
 
     class Meta:
         verbose_name = "Thread"
@@ -67,29 +64,6 @@ class QuestionAnswer(AbstractBaseModel, AbstractProjectDependentModel):
         verbose_name_plural = "Question/Answer Items"
 
 
-class Label(AbstractBaseModel, AbstractProjectDependentModel):
-    """
-    A model representing a Label, which has a 1:N relationship with Project.
-    """
-
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    project = models.ForeignKey(
-        Project, on_delete=models.CASCADE, related_name="labels"
-    )
-    name = models.TextField()  # the name of the label for the conversation
-
-    def __str__(self):
-        return self.name
-
-    @property
-    def parent_project(self):
-        return self.project
-
-    class Meta:
-        verbose_name = "Label"
-        verbose_name_plural = "Labels"
-
-
 class LabelReview(AbstractBaseModel, AbstractProjectDependentModel):
     """
     A model representing a LabelReview, which has a 1:1 relationship with Thread.
@@ -101,8 +75,8 @@ class LabelReview(AbstractBaseModel, AbstractProjectDependentModel):
     )
     user_id = models.UUIDField(null=True, default=None, editable=False)
     comment = models.TextField()
-    old_category_id = models.UUIDField(null=True, default=None, editable=False)
-    new_category_id = models.UUIDField(null=True, default=None, editable=False)
+    old_label = models.CharField(max_length=100, default=None)
+    new_label = models.CharField(max_length=100, default=None)
 
     def __str__(self):
         return f"Label review for {self.thread} {self.id}"
@@ -110,6 +84,9 @@ class LabelReview(AbstractBaseModel, AbstractProjectDependentModel):
     @property
     def parent_project(self):
         return self.thread.project
+
+    # TODO: Also, add the restriction on the old and the new label that it should be one of the possible values
+    #  as allowed by the project
 
     class Meta:
         verbose_name = "Label Review"
