@@ -24,3 +24,7 @@ make initialize-backfill-table
 1. Add test for the constraint that the thread would be classified in one of the labels defined in the associated class.
 2. Check if the label constraint on the thread exist at the database level or at the application code level.
 3. Add tests for thread classification service
+4. Add tests for thread backfill service
+5. Add test for backfill threads task
+6. Add test for caching during the backfill thread task
+7. Add test for v1/projects/<uuid:project_id>/labels endpoint to create, update and delete the labels

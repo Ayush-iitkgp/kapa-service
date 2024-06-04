@@ -111,6 +111,10 @@ class Project(AbstractBaseModel, AbstractProjectDependentModel):
         verbose_name = "Project"
         verbose_name_plural = "Projects"
 
+    def update_labels(self, labels: list[str]) -> None:
+        self.labels = labels
+        self.save()
+
 
 class ProjectAPIKey(AbstractAPIKey):
     """

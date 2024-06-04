@@ -1,10 +1,9 @@
 import logging
 
 from django.contrib.auth import get_user_model
-from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
 
-from org.models import Project, ProjectAPIKey, Team, UserEmailSettings
+from org.models import Project, ProjectAPIKey
 
 logger = logging.getLogger(__name__)
 
@@ -32,3 +31,11 @@ class ProjectSerializer(serializers.ModelSerializer):
     class Meta:
         model = Project
         fields = "__all__"
+
+
+class LabelInputSerializer(serializers.Serializer):
+    labels = serializers.ListField(
+        child=serializers.CharField(max_length=100),
+        required=True,
+        help_text="List of labels associated with the project",
+    )
