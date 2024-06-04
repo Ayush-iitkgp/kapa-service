@@ -9,3 +9,7 @@ You can see some deployed examples of the real kapa [here](https://docs.kapa.ai/
 The project introduction and the problem statement can be found at [docs/problem_statement.md](docs/problem_statement.md)
 
 ## Solution
+
+## TODO
+1. Add test for the contraint that the thread would be classified in one of the labels defined in the associated class.
+2. Check if the label contraint on the thread exist at the database level or at the application code level.

@@ -30,12 +30,19 @@ class Thread(AbstractBaseModel, AbstractProjectDependentModel):
     def parent_project(self):
         return self.project
 
+    # TODO: Add test for the contraint that the thread would be classified in one of
+    #  the labels defined in the associated class.
     def clean(self):
         super().clean()
         if self.label is not None and self.label not in self.project.labels:
             raise ValidationError(
                 f"The label '{self.label}' is not in the project's defined labels."
             )
+
+    def save(self, *args, **kwargs):
+        # Call the clean method to ensure validations are performed
+        self.clean()
+        super(Thread, self).save(*args, **kwargs)
 
     def update_label(self, label):
         self.label = label
