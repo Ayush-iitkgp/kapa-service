@@ -33,7 +33,9 @@ def classify_thread(thread_id: str) -> None:
 def back_fill_thread(thread_id: str) -> None:
     logger.info(f"back_fill_thread job started for the Thread {thread_id}")
     # Caching the thread to avoid the duplicate back filling
-    with cache.lock(thread_id, timeout=600):
+    cache_id = cache.get("cache_id")
+    if cache_id is None:
+        cache.set("cache_id", thread_id, timeout=600)
         thread = Thread.objects.get(id=thread_id)
         BackFillThreadService.back_fill_thread(thread)
 
@@ -43,7 +45,8 @@ def back_fill_threads_task() -> None:
     logger.info("back_fill_threads_task has job started")
     # extract 100 thread ids at a time that have not been backfilled
     thread_ids = BackFillStatus.objects.filter(is_back_filled=False).values_list(
-        "id", flat=True
+        "thread_id", flat=True
     )[:100]
+    logger.info(f"threads eligible for back filling are has {thread_ids}")
     for thread_id in thread_ids:
         back_fill_thread.apply_async(kwargs={"thread_id": str(thread_id)})
