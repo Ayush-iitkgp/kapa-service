@@ -9,7 +9,18 @@ You can see some deployed examples of the real kapa [here](https://docs.kapa.ai/
 The project introduction and the problem statement can be found at [docs/problem_statement.md](docs/problem_statement.md)
 
 ## Solution
+1. Set up the local development as described [here](https://github.com/Ayush-iitkgp/django-service/blob/dev/docs/problem_statement.md#local-development)
+2. Modify and create new tables in the database. Shell into the `service` container. You can use the VSCode Plugin for docker for this. Simply right click on the service and click `Attach Shell`.
+```
+make migrate
+```
+3. Initialize the query_backfillstatus table with default values
+```
+make initialize-backfill-table
+```
+
 
 ## TODO
-1. Add test for the contraint that the thread would be classified in one of the labels defined in the associated class.
-2. Check if the label contraint on the thread exist at the database level or at the application code level.
+1. Add test for the constraint that the thread would be classified in one of the labels defined in the associated class.
+2. Check if the label constraint on the thread exist at the database level or at the application code level.
+3. Add tests for thread classification service
