@@ -14,7 +14,17 @@ The project introduction and the problem statement can be found at [docs/problem
 ```
 make migrate
 ```
-3. Initialize the query_backfillstatus table with default values
+3. Definitions of the new endpoints can be found at http://localhost:8002/redoc
+4. Example to create labels of a project
+```
+curl --location 'http://localhost:8002/org/v1/projects/<YOUR_PROJECT_ID>/labels' \
+--header 'X-API-KEY: <YOUR_PROJECT_API_KEY>' \
+--header 'Content-Type: application/json' \
+--data '{
+    "labels": ["first label", "second label", "third label"]
+}'
+```
+5. Set up for the thread backfill job
 ```
 make initialize-backfill-table
 ```
@@ -28,4 +38,4 @@ make initialize-backfill-table
 5. Add test for backfill threads task
 6. Add test for caching during the backfill thread task
 7. Add test for v1/projects/<uuid:project_id>/labels endpoint to create, update and delete the labels
-8. Add endpoint foe modifying the thread label by the user.
+8. Add endpoint for modifying the thread label by the user.
