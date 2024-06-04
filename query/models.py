@@ -107,22 +107,26 @@ class LabelReview(AbstractBaseModel, AbstractProjectDependentModel):
         verbose_name_plural = "Label Reviews"
 
 
-class BackfillStatus(AbstractBaseModel):
+class BackFillStatus(AbstractBaseModel):
     """
-    A model representing a BackfillStatus, which has a 1:1 relationship with Thread.
+    A model representing a BackFillStatus, which has a 1:1 relationship with Thread.
     """
 
     thread = models.OneToOneField(
         Thread,
         on_delete=models.CASCADE,
         primary_key=True,
-        related_name="backfill_status",
+        related_name="back_fill_status",
     )
-    is_backfilled = models.BooleanField(default=False)
+    is_back_filled = models.BooleanField(default=False)
 
     def __str__(self):
-        return f"Backfill status for {self.thread.id}"
+        return f"Back fill status for {self.thread.id}"
 
     class Meta:
-        verbose_name = "Backfill Status"
-        verbose_name_plural = "Backfill Statuses"
+        verbose_name = "Back fill Status"
+        verbose_name_plural = "Back fill Statuses"
+
+    def update_status(self, is_back_filled):
+        self.is_back_filled = is_back_filled
+        self.save()

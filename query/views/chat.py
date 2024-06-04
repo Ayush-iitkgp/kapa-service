@@ -43,11 +43,9 @@ class ChatView(APIView):
                 question=question, thread=thread
             )
         else:
-            # First queston
+            # First question
             result = rag_agent.generate_answer(question)
-            classify_thread.apply_async(
-                kwargs={"question_answer_id": str(result["question_answer_id"])}
-            )
+            classify_thread.apply_async(kwargs={"thread_id": str(result["thread_id"])})
 
         # Serialize the response data
         response_serializer = ChatOutputSerializer(data=result)

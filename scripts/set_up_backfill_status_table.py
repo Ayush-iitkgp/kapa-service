@@ -10,9 +10,9 @@ django.setup()
 
 
 if __name__ == "__main__":
-    from query.models import BackfillStatus, Thread
+    from query.models import BackFillStatus, Thread
 
     threads = Thread.objects.all()
     for thread in threads:
         if thread.label is None:
-            BackfillStatus.objects.create(thread=thread)
+            BackFillStatus.objects.create(thread=thread)
