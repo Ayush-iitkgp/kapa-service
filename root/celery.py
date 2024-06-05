@@ -24,9 +24,9 @@ def debug_task(self):
 
 
 app.conf.beat_schedule = {
-    "back-fill-threads-every-10-minutes": {
+    "back-fill-threads-every-10-minutes-between-10-pm-and-7-am": {
         "task": "query.tasks.back_fill_threads_task",
-        "schedule": crontab(minute="*/10"),
+        "schedule": crontab(minute="*/10", hour="22-23,0-6"),
         "args": (),
     },
 }

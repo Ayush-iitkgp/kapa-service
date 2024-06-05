@@ -2,7 +2,7 @@ import pytest
 from rest_framework.test import APIClient
 
 from org.models import Project, ProjectAPIKey, Team
-from query.models import QuestionAnswer, Thread
+from query.models import BackFillStatus, QuestionAnswer, Thread
 
 
 @pytest.fixture
@@ -39,3 +39,8 @@ def question_answer(thread: Thread) -> QuestionAnswer:
     yield QuestionAnswer.objects.create(
         question="random question", answer="random answer", thread=thread
     )
+
+
+@pytest.fixture()
+def back_fill_status(thread: Thread) -> BackFillStatus:
+    yield BackFillStatus.objects.create(thread=thread, is_back_filled=False)

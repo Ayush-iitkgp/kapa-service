@@ -15,7 +15,7 @@ The project introduction and the problem statement can be found at [docs/problem
 make migrate
 ```
 3. Definitions of the new endpoints can be found at http://localhost:8002/redoc
-4. Postman collection for the usage of all the endpoints can be found at [postman/django-service.postman_collection.json](postman/django-service.postman_collection.json)
+4. Postman collection for the example of usage of all the endpoints can be found [here](https://www.postman.com/ayushpandey-iitkgp/workspace/kapa-interview-service/collection/3648685-7a5e761a-24ca-480b-a601-4e109d65f4c4?action=share&creator=3648685)
 5. Example to create labels of a project
 ```
 curl --location 'http://localhost:8002/org/v1/projects/<YOUR_PROJECT_ID>/labels' \
@@ -25,17 +25,17 @@ curl --location 'http://localhost:8002/org/v1/projects/<YOUR_PROJECT_ID>/labels'
     "labels": ["first label", "second label", "third label"]
 }'
 ```
-6. Set up for the thread backfill job
+6. Set up the thread backfill job
 ```
 make initialize-backfill-table
 ```
 
 
 ## TODO
-1. Add test for the constraint that the thread would be classified in one of the labels defined in the associated class.
+1. ~~Add test for the constraint that the thread would be classified in one of the labels defined in the associated class.~~
 2. Check if the label constraint on the thread exist at the database level or at the application code level.
-3. Add tests for thread classification service
-4. Add tests for thread backfill service
+3. ~~Add tests for thread classification service~~
+4. ~~Add tests for thread backfill service~~
 5. Add test for backfill threads task
 6. Add test for caching during the backfill thread task
 7. Add test for v1/projects/<uuid:project_id>/labels endpoint to create, update and delete the labels
