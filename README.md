@@ -15,7 +15,8 @@ The project introduction and the problem statement can be found at [docs/problem
 make migrate
 ```
 3. Definitions of the new endpoints can be found at http://localhost:8002/redoc
-4. Example to create labels of a project
+4. Postman collection for the usage of all the endpoints can be found at [postman/django-service.postman_collection.json](postman/django-service.postman_collection.json)
+5. Example to create labels of a project
 ```
 curl --location 'http://localhost:8002/org/v1/projects/<YOUR_PROJECT_ID>/labels' \
 --header 'X-API-KEY: <YOUR_PROJECT_API_KEY>' \
@@ -24,7 +25,7 @@ curl --location 'http://localhost:8002/org/v1/projects/<YOUR_PROJECT_ID>/labels'
     "labels": ["first label", "second label", "third label"]
 }'
 ```
-5. Set up for the thread backfill job
+6. Set up for the thread backfill job
 ```
 make initialize-backfill-table
 ```
