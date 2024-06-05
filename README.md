@@ -38,5 +38,5 @@ make initialize-backfill-table
 4. ~~Add tests for thread backfill service~~
 5. Add test for backfill threads task
 6. Add test for caching during the backfill thread task
-7. Add test for v1/projects/<uuid:project_id>/labels endpoint to create, update and delete the labels
-8. Add endpoint for modifying the thread label by the user.
+7. ~~Add test for v1/projects/<uuid:project_id>/labels endpoint to create, update and delete the labels~~
+8. ~~Add endpoint for modifying the thread label by the user.~~
