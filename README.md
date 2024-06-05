@@ -25,7 +25,7 @@ curl --location 'http://localhost:8002/org/v1/projects/<YOUR_PROJECT_ID>/labels'
     "labels": ["first label", "second label", "third label"]
 }'
 ```
-6. Set up the thread backfill job
+6. Run the command below before running the thread backfilling job
 ```
 make initialize-backfill-table
 ```
