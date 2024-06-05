@@ -43,7 +43,7 @@ def back_fill_thread(thread_id: str) -> None:
 @shared_task
 def back_fill_threads_task() -> None:
     logger.info("back_fill_threads_task has job started")
-    # extract 100 thread ids at a time that have not been backfilled
+    # extract 1000 thread ids at a time that have not been backfilled
     thread_ids = BackFillStatus.objects.filter(is_back_filled=False).values_list(
         "thread_id", flat=True
     )[:100]
