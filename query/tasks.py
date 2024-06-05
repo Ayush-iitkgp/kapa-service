@@ -46,7 +46,7 @@ def back_fill_threads_task() -> None:
     # extract 1000 thread ids at a time that have not been backfilled
     thread_ids = BackFillStatus.objects.filter(is_back_filled=False).values_list(
         "thread_id", flat=True
-    )[:100]
+    )[:1000]
     logger.info(f"threads eligible for back filling are has {thread_ids}")
     for thread_id in thread_ids:
         back_fill_thread.apply_async(kwargs={"thread_id": str(thread_id)})
