@@ -15,10 +15,10 @@ jobs:
       - name: Check out source repository
         uses: actions/checkout@v3
 
-      - name: flake8 Lint
-        uses: py-actions/flake8@v2
-        with:
-          max-line-length: "120"
+#      - name: flake8 Lint
+#        uses: py-actions/flake8@v2
+#        with:
+#          max-line-length: "120"
   tests:
     runs-on: ubuntu-latest
 

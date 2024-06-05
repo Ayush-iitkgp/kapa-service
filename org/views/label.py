@@ -21,15 +21,27 @@ class ProjectLabelView(APIView):
 
     def post(self, request: Request, project_id: Union[uuid.UUID, str]) -> Response:
         project, labels = self.validate_request(request, project_id)
-        project.update(labels)
+        logger.info(project.labels)
+        existing_labels = project.labels
+        if existing_labels is not None and len(existing_labels) > 0:
+            # TODO: Is 400 a correct status code to send?
+            return Response(
+                {
+                    "error": "Create labels not allowed for the the project for which it already exist"
+                },
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        project.update_labels(labels)
         logger.info(f"Project {project.id} labels created")
-        return Response(self.serializer_class.data, status=status.HTTP_201_CREATED)
+        project_serializer = self.serializer_class(project)
+        return Response(project_serializer.data, status=status.HTTP_201_CREATED)
 
     def patch(self, request, project_id) -> Response:
         project, labels = self.validate_request(request, project_id)
-        project.update(labels)
+        project.update_labels(labels)
         logger.info(f"Project {project.id} labels updated")
-        return Response(self.serializer_class.data, status=status.HTTP_200_OK)
+        project_serializer = self.serializer_class(project)
+        return Response(project_serializer.data, status=status.HTTP_200_OK)
 
     def delete(self, request, project_id) -> Response:
         project = get_object_or_404(Project, id=project_id)
