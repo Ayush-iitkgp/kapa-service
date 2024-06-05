@@ -10,13 +10,14 @@ The project introduction and the problem statement can be found at [docs/problem
 
 ## Solution
 1. Set up the local development as described [here](https://github.com/Ayush-iitkgp/django-service/blob/dev/docs/problem_statement.md#local-development)
-2. Modify and create new tables in the database. Shell into the `service` container. You can use the VSCode Plugin for docker for this. Simply right click on the service and click `Attach Shell`.
+2. Shell into the `service` container.
+3. Modify and create new tables in the database.
 ```
 make migrate
 ```
-3. Definitions of the new endpoints can be found at http://localhost:8002/redoc
-4. Postman collection for the example of usage of all the endpoints can be found [here](https://www.postman.com/ayushpandey-iitkgp/workspace/kapa-interview-service/collection/3648685-7a5e761a-24ca-480b-a601-4e109d65f4c4?action=share&creator=3648685)
-5. Example to create labels of a project
+4. Definitions of the new endpoints can be found at http://localhost:8002/redoc
+5. Postman collection for the example of usage of all the endpoints can be found [here](https://www.postman.com/ayushpandey-iitkgp/workspace/kapa-interview-service/collection/3648685-7a5e761a-24ca-480b-a601-4e109d65f4c4?action=share&creator=3648685)
+6. Example to create labels of a project
 ```
 curl --location 'http://localhost:8002/org/v1/projects/<YOUR_PROJECT_ID>/labels' \
 --header 'X-API-KEY: <YOUR_PROJECT_API_KEY>' \
@@ -25,9 +26,13 @@ curl --location 'http://localhost:8002/org/v1/projects/<YOUR_PROJECT_ID>/labels'
     "labels": ["first label", "second label", "third label"]
 }'
 ```
-6. Run the command below before running the thread backfilling job
+7. Run the command below before running the thread backfilling job
 ```
 make initialize-backfill-table
+```
+8. Run the test in the docker environment
+```
+pytest -v
 ```
 
 
