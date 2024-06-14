@@ -8,7 +8,6 @@ from rest_framework import status, viewsets
 from rest_framework.exceptions import ValidationError
 from rest_framework.request import Request
 from rest_framework.response import Response
-from rest_framework.views import APIView
 
 from org.models import Project
 from org.permissions import HasProjectAPIKey
@@ -25,7 +24,7 @@ class ThreadView(viewsets.ModelViewSet):
 
     serializer_class = ThreadSerializer
     permission_classes = [HasProjectAPIKey]
-    http_method_names = ["get"]
+    http_method_names = ["get", "patch"]
 
     def get_queryset(self) -> models.QuerySet:
         project_id = self.kwargs.get("project_id")
@@ -33,11 +32,6 @@ class ThreadView(viewsets.ModelViewSet):
             project = get_object_or_404(Project, id=project_id)
             return Thread.objects.filter(project=project)
         raise ValidationError("Project ID is required")
-
-
-class UpdateThreadLabelView(APIView):
-    permission_classes = [HasProjectAPIKey]
-    serializer_class = ThreadSerializer
 
     def patch(self, request: Request, project_id: Union[uuid.UUID, str]):
         project = get_object_or_404(Project, id=project_id)

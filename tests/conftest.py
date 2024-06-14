@@ -2,7 +2,6 @@ import os
 
 import django
 import pytest
-from rest_framework.test import APIClient
 
 
 def pytest_configure() -> None:
@@ -11,6 +10,7 @@ def pytest_configure() -> None:
 
 
 pytest_configure()
+from rest_framework.test import APIClient  # noqa: E402
 
 from org.models import Project, ProjectAPIKey, Team  # noqa: E402
 
