@@ -13,9 +13,17 @@ urlpatterns = [
         ThreadView.as_view(
             {
                 "get": "list",
-                "patch": "patch",
             }
         ),
         name="threads-list",
+    ),
+    path(
+        "v1/projects/<uuid:project_id>/threads/<uuid:thread_id>/",
+        ThreadView.as_view(
+            {
+                "patch": "partial_update",
+            }
+        ),
+        name="update-labels",
     ),
 ]

@@ -17,9 +17,8 @@ def test_update_thread_label(
     thread.refresh_from_db()
     assert thread.label != new_label
     response = client_api_token.patch(
-        f"/query/v1/projects/{project_id}/threads/",
+        f"/query/v1/projects/{project_id}/threads/{thread.id}/",
         data={
-            "thread_id": str(thread.id),
             "new_label": new_label,
             "comment": "label updated by ayush",
             "user_id": "e003e31e-54e5-41cd-8e8f-5af16c231085",

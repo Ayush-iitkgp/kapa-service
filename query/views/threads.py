@@ -33,7 +33,12 @@ class ThreadView(viewsets.ModelViewSet):
             return Thread.objects.filter(project=project)
         raise ValidationError("Project ID is required")
 
-    def patch(self, request: Request, project_id: Union[uuid.UUID, str]):
+    def partial_update(
+        self,
+        request: Request,
+        project_id: Union[uuid.UUID, str],
+        thread_id: Union[uuid.UUID, str],
+    ):
         project = get_object_or_404(Project, id=project_id)
         logger.info(f"Updating label for thread {project.id}")
         serializer = UpdateThreadLabelInputSerializer(data=request.data)
@@ -41,7 +46,6 @@ class ThreadView(viewsets.ModelViewSet):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
         validated_data = serializer.validated_data
-        thread_id = validated_data.get("thread_id")
         thread = get_object_or_404(Thread, id=thread_id)
         new_label = validated_data.get("new_label")
         if new_label not in project.labels:

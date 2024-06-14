@@ -70,7 +70,6 @@ class UpdateThreadLabelInputSerializer(serializers.Serializer):
     Serializer for the update thread label input
     """
 
-    thread_id = serializers.UUIDField(help_text="The thread id to update the label")
     new_label = serializers.CharField(
         help_text="The new label of the thread as provided by the user"
     )
