@@ -1,5 +1,5 @@
 import uuid
-from typing import List, TypedDict
+from typing import TypedDict
 
 
 class Chunk(TypedDict):

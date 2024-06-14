@@ -7,9 +7,10 @@ from rest_framework.views import APIView
 
 from org.models import Project
 from org.permissions import HasProjectAPIKey
-from query.models import QuestionAnswer, Thread
+from query.models import Thread
 from query.serializers import ChatInputSerializer, ChatOutputSerializer
 from query.src.rag_agent import RAGAgent
+from query.tasks import classify_thread
 
 logger = logging.getLogger(__name__)
 
@@ -42,8 +43,9 @@ class ChatView(APIView):
                 question=question, thread=thread
             )
         else:
-            # First queston
+            # First question
             result = rag_agent.generate_answer(question)
+            classify_thread.apply_async(kwargs={"thread_id": str(result["thread_id"])})
 
         # Serialize the response data
         response_serializer = ChatOutputSerializer(data=result)

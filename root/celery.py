@@ -1,6 +1,7 @@
 import os
 
 from celery import Celery
+from celery.schedules import crontab
 
 # Set the default Django settings module for the 'celery' program.
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "root.settings")
@@ -20,3 +21,12 @@ app.autodiscover_tasks()
 @app.task(bind=True)
 def debug_task(self):
     print(f"Request: {self.request!r}")
+
+
+app.conf.beat_schedule = {
+    "back-fill-threads-every-10-minutes-between-10-pm-and-7-am": {
+        "task": "query.tasks.back_fill_threads_task",
+        "schedule": crontab(minute="*/10", hour="22-23,0-6"),
+        "args": (),
+    },
+}

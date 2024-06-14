@@ -38,3 +38,7 @@ whitenoise==6.6.0
 coreapi==2.3.3
 isort==5.12.0
 black==23.3.0
+pre-commit==3.7.1
+flake8==7.0.0
+pytest==8.2.1
+pytest-django==4.8.0

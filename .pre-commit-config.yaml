@@ -1,0 +1,35 @@
+repos:
+-   repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v2.3.0
+    hooks:
+    -   id: check-yaml
+    -   id: end-of-file-fixer
+    -   id: trailing-whitespace
+    -   id: check-added-large-files
+-   repo: local
+    hooks:
+      - id: black
+        name: black
+        entry: black
+        language: system
+        types: [ python ]
+        exclude: '.*/migrations/.*'
+      - id: flake8
+        name: flake8
+        entry: flake8
+        language: system
+        types: [ python ]
+        exclude: '.*/migrations/.*'
+        args: [
+          '--max-line-length=120'
+        ]
+      - id: isort
+        name: isort
+        entry: isort
+        language: system
+        types: [ python ]
+        exclude: '.*/migrations/.*'
+        args: [
+            '--profile=black',
+            '--section-default=THIRDPARTY',
+        ]

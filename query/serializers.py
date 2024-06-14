@@ -48,6 +48,7 @@ class ThreadSerializer(serializers.ModelSerializer):
             "created_at",
             "first_question",
             "total_questions",
+            "label",
         ]
 
     def get_first_question(self, obj) -> Optional[str]:
@@ -62,3 +63,19 @@ class ThreadSerializer(serializers.ModelSerializer):
         Returns the total number of questions associated with the thread
         """
         return obj.question_answers.count()
+
+
+class UpdateThreadLabelInputSerializer(serializers.Serializer):
+    """
+    Serializer for the update thread label input
+    """
+
+    new_label = serializers.CharField(
+        help_text="The new label of the thread as provided by the user"
+    )
+    user_id = serializers.UUIDField(
+        help_text="if of the user who is correcting the label"
+    )
+    comment = serializers.CharField(
+        required=False, help_text="optional comment by the user"
+    )

@@ -1,8 +1,8 @@
 import random
 import time
-from typing import Any, List
+from typing import List
 
-from query.src.types import Label
+from org.models import Project
 
 
 class DummyClassifier:
@@ -12,7 +12,10 @@ class DummyClassifier:
     an actual classifier.
     """
 
-    def classify_question(self, question: str, possible_labels: List[Label]) -> Label:
+    def __init__(self, project: Project):
+        self.project = project
+
+    def classify_question(self, question: str, possible_labels: List[str]) -> str:
         """
         Assign a label from a list of possible labels to an question.
 

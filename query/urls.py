@@ -1,4 +1,4 @@
-from django.urls import include, path
+from django.urls import path
 from rest_framework.routers import DefaultRouter
 
 from query.views.chat import ChatView
@@ -16,5 +16,14 @@ urlpatterns = [
             }
         ),
         name="threads-list",
+    ),
+    path(
+        "v1/projects/<uuid:project_id>/threads/<uuid:thread_id>/",
+        ThreadView.as_view(
+            {
+                "patch": "partial_update",
+            }
+        ),
+        name="update-labels",
     ),
 ]

@@ -26,7 +26,10 @@ create-superuser:
 	python manage.py createsuperuser
 
 create-cachetable:
-	python manage.py createcachetable 	
+	python manage.py createcachetable
 
 bootstrap:
 	make migrate org && make migrate && make create-cachetable
+
+initialize-backfill-table:
+	 python scripts/set_up_backfill_status_table.py

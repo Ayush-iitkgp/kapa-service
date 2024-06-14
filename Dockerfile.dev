@@ -10,4 +10,4 @@ RUN apt-get update && \
     apt-get install -y make postgresql postgresql-contrib postgresql-client && \
     rm -rf /var/lib/apt/lists/*
 
-EXPOSE 8001
+EXPOSE 8002
